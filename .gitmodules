@@ -1,0 +1,6 @@
+[submodule "havnc"]
+	path = havnc
+	url = https://github.com/gnyman/havnc
+[submodule "havnc-dragons"]
+	path = havnc-dragons
+	url = https://github.com/gnyman/havnc
