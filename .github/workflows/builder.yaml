@@ -11,6 +11,12 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      addon:
+        description: 'Addon to build (leave empty for all)'
+        required: false
+        default: ''
 
 jobs:
   init:
@@ -27,6 +33,7 @@ jobs:
 
       - name: Get changed files
         id: changed_files
+        if: github.event_name != 'workflow_dispatch'
         uses: jitterbit/get-changed-files@v1
 
       - name: Find add-on directories
@@ -36,6 +43,22 @@ jobs:
       - name: Get changed add-ons
         id: changed_addons
         run: |
+          # Handle manual workflow_dispatch trigger
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            if [[ -n "${{ github.event.inputs.addon }}" ]]; then
+              echo "Manual trigger: building ${{ github.event.inputs.addon }}"
+              echo "changed=true" >> $GITHUB_OUTPUT
+              echo "addons=[\"${{ github.event.inputs.addon }}\"]" >> $GITHUB_OUTPUT
+            else
+              echo "Manual trigger: building all addons"
+              addons="${{ steps.addons.outputs.addons }}"
+              json_array=$(echo "$addons" | tr ' ' '\n' | sed 's/.*/"&"/' | tr '\n' ',' | sed 's/,$//')
+              echo "changed=true" >> $GITHUB_OUTPUT
+              echo "addons=[$json_array]" >> $GITHUB_OUTPUT
+            fi
+            exit 0
+          fi
+
           declare -a changed_addons
           for addon in ${{ steps.addons.outputs.addons }}; do
             # Check if addon is a submodule that changed (submodule pointer update)
