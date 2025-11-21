@@ -38,6 +38,21 @@ jobs:
         run: |
           declare -a changed_addons
           for addon in ${{ steps.addons.outputs.addons }}; do
+            # Check if addon is a submodule that changed (submodule pointer update)
+            if [[ -f ".gitmodules" ]] && grep -q "path = $addon" .gitmodules; then
+              # For submodules, check if the submodule entry itself changed
+              for changed in ${{ steps.changed_files.outputs.all }}; do
+                if [[ "$changed" == "$addon" ]]; then
+                  echo "Submodule $addon changed"
+                  if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
+                    changed_addons+=("\"${addon}\",");
+                  fi
+                  break
+                fi
+              done
+            fi
+
+            # Check for monitored file changes (regular directories)
             if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon ]]; then
               for file in ${{ env.MONITORED_FILES }}; do
                   if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon/$file ]]; then
