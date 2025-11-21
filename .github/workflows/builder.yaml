@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v5.0.0
+        with:
+          submodules: true
 
       - name: Get changed files
         id: changed_files
@@ -72,6 +74,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v5.0.0
+        with:
+          submodules: true
 
       - name: Get information
         id: info
