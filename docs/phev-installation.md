@@ -1,9 +1,9 @@
-# Install and test PHEV
+# Install and test PHEV-DRAGONS
 
 Add `https://github.com/gnyman/ha-addons` to Home Assistant's app store under
 **Settings → Apps → Install app → ⋮ → Repositories**. On older releases these
 pages are called Add-ons and Add-on Store. If the repository is already added,
-select **Check for updates**. PHEV version **1.8** should appear in this
+select **Check for updates**. PHEV-DRAGONS version **1.9** should appear in this
 repository's section.
 
 Install it. This is a source-built app: Home Assistant builds the image from
@@ -13,9 +13,10 @@ build can take several minutes. Build failures are reported in Supervisor logs.
 
 ## Moving from ~/local_apps/phev
 
-The local app and repository app have different full IDs, even though both use
-the `phev` slug. This is a new installation, not an in-place update of the local
-one. The source folder at `~/local_apps/phev` can stay as a rollback copy.
+The repository offers PHEV-DRAGONS with the `phev-dragons` slug. Your old local
+PHEV app keeps its `phev` slug and can remain installed alongside it. This is a
+new installation with separate configuration. Keep `~/local_apps/phev` as a
+rollback copy.
 
 1. Copy the existing app's Configuration values into the new app's Configuration
    tab: MQTT server, username/password, `phev_ip`, and `phev_port`. Keep secrets
@@ -44,7 +45,7 @@ coexist with the old charging bit during a transition.
 
 ## Publishing an update
 
-This repository pins `phev/` to an exact commit in
+This repository pins `phev-dragons/` to an exact commit in
 `gnyman/home-assistant-addon-phev2mqtt`. Publish the bridge fork's commits first,
 then the add-on source repository, and finally the ha-addons commit that updates
 this pointer. Publishing the pointer before its source commit is reachable
@@ -53,10 +54,10 @@ would break submodule checkout.
 For maintainers updating the checkout:
 
 ```sh
-git submodule update --init phev
-git -C phev fetch origin main
-git -C phev checkout <reviewed-add-on-commit>
-git add phev
+git submodule update --init phev-dragons
+git -C phev-dragons fetch origin main
+git -C phev-dragons checkout <reviewed-add-on-commit>
+git add phev-dragons
 git commit
 ```
 

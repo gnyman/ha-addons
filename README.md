@@ -13,7 +13,7 @@ The normal version of havnc, it's the one I recommend and that I would personall
 Here be dragons, this is the latest and possibly (likely?) broken version of havnc, this is for masochists and people who run arch
 
 
-## phev
+## PHEV-DRAGONS
 
 Mitsubishi Outlander PHEV to MQTT, with Home Assistant discovery, charge-timer
 override control, detailed charging state, and reconnect recovery. The source
