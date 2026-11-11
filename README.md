@@ -16,9 +16,9 @@ Here be dragons, this is the latest and possibly (likely?) broken version of hav
 ## PHEV-DRAGONS
 
 Mitsubishi Outlander PHEV to MQTT, with Home Assistant discovery, charge-timer
-override control, detailed charging state, and reconnect recovery. The source
-includes the patched bridge, so Home Assistant builds the app on installation;
-no separately published container image is required.
+override control, detailed charging state, and reconnect recovery. Prebuilt minimal images
+include the patched bridge, so Home Assistant downloads the app without compiling
+it on the device.
 
 Source: https://github.com/gnyman/home-assistant-addon-phev2mqtt
 

@@ -3,13 +3,12 @@
 Add `https://github.com/gnyman/ha-addons` to Home Assistant's app store under
 **Settings → Apps → Install app → ⋮ → Repositories**. On older releases these
 pages are called Add-ons and Add-on Store. If the repository is already added,
-select **Check for updates**. PHEV-DRAGONS version **1.9.1** should appear in this
+select **Check for updates**. PHEV-DRAGONS version **1.10** should appear in this
 repository's section.
 
-Install it. This is a source-built app: Home Assistant builds the image from
-its Dockerfile, including the vendored patched bridge. No bridge checkout,
-submodule command, or image-registry login is needed on the HA device. The first
-build can take several minutes. Build failures are reported in Supervisor logs.
+Install it. Home Assistant downloads a prebuilt minimal image from public GHCR
+packages; it does not compile the bridge on your device. No bridge checkout,
+submodule command, or image-registry login is needed on the HA device.
 
 ## Moving from ~/local_apps/phev
 
@@ -47,20 +46,21 @@ coexist with the old charging bit during a transition.
 
 This repository pins `phev-dragons/` to an exact commit in
 `gnyman/home-assistant-addon-phev2mqtt`. Publish the bridge fork's commits first,
-then the add-on source repository, and finally the ha-addons commit that updates
-this pointer. Publishing the pointer before its source commit is reachable
-would break submodule checkout.
+then the add-on source repository. Wait for its image publishing workflow to
+succeed for all architectures and verify that the GHCR packages are public.
+Finally publish the ha-addons commit that updates this pointer. Publishing the
+pointer before its source commit is reachable would break submodule checkout.
 
 For maintainers updating the checkout:
 
 ```sh
 git submodule update --init phev-dragons
-git -C phev-dragons fetch origin main
+git -C phev-dragons fetch origin phev-dragons
 git -C phev-dragons checkout <reviewed-add-on-commit>
 git add phev-dragons
 git commit
 ```
 
-The app version must increase when releasing a subsequent update. Source builds
-happen on the HA device; this repository's existing image-publishing workflow
-skips apps without an `image` property.
+The app version must increase when releasing a subsequent update. The source
+repository workflow builds, tests, and publishes the images. This repository's legacy image builder skips
+PHEV-DRAGONS to avoid duplicate publication.
