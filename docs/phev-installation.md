@@ -3,7 +3,7 @@
 Add `https://github.com/gnyman/ha-addons` to Home Assistant's app store under
 **Settings → Apps → Install app → ⋮ → Repositories**. On older releases these
 pages are called Add-ons and Add-on Store. If the repository is already added,
-select **Check for updates**. PHEV-DRAGONS version **1.10.1** should appear in this
+select **Check for updates**. PHEV-DRAGONS version **1.10.2** should appear in this
 repository's section.
 
 Install it. Home Assistant downloads a prebuilt minimal image from public GHCR
