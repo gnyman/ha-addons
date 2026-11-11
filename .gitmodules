@@ -4,3 +4,7 @@
 [submodule "havnc-dragons"]
 	path = havnc-dragons
 	url = https://github.com/gnyman/havnc
+[submodule "phev"]
+	path = phev
+	url = https://github.com/gnyman/home-assistant-addon-phev2mqtt
+	branch = main
