@@ -3,7 +3,7 @@
 Add `https://github.com/gnyman/ha-addons` to Home Assistant's app store under
 **Settings → Apps → Install app → ⋮ → Repositories**. On older releases these
 pages are called Add-ons and Add-on Store. If the repository is already added,
-select **Check for updates**. PHEV-DRAGONS version **1.10** should appear in this
+select **Check for updates**. PHEV-DRAGONS version **1.10.1** should appear in this
 repository's section.
 
 Install it. Home Assistant downloads a prebuilt minimal image from public GHCR
@@ -22,8 +22,9 @@ rollback copy.
    in the HA configuration UI. Use the vehicle address reachable from HA; the
    forwarded address used during development is not necessarily the right one
    for HA itself.
-2. Set `debug: false` for normal operation. Debug mode only sleeps and does not
-   start the bridge.
+2. Leave `debug: false` for normal logging. Set `debug: true` for protocol
+   diagnostics while the bridge continues running. PING logs stay hidden unless
+   `log_pings: true` is set. Restart the app after changing configuration.
 3. Stop the old local PHEV app and any other PHEVCTRL bridge before starting the
    new one. The vehicle has a single client slot, and the bridges also share a
    default MQTT client ID.
